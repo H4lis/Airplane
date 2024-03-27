@@ -1,13 +1,20 @@
 import 'dart:math';
 
 import 'package:airplane/shared/theme.dart';
+import 'package:airplane/ui/pages/choose_seat_page.dart';
+import 'package:airplane/ui/widgets/cotum_button.dart';
 import 'package:airplane/ui/widgets/interest_item.dart';
 import 'package:airplane/ui/widgets/photo_item.dart';
 import 'package:flutter/material.dart';
 
-class DetailPage extends StatelessWidget {
+class DetailPage extends StatefulWidget {
   const DetailPage({super.key});
 
+  @override
+  State<DetailPage> createState() => _DetailPageState();
+}
+
+class _DetailPageState extends State<DetailPage> {
   Widget costumShadow() {
     return Container(
       margin: const EdgeInsets.only(top: 236),
@@ -149,8 +156,52 @@ class DetailPage extends StatelessWidget {
               ],
             ),
           ),
+          Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "IDR 2.500.000",
+                      style: blackTextStyle.copyWith(
+                        fontSize: 16,
+                        fontWeight: medium,
+                      ),
+                    ),
+                    Text("per orang"),
+                  ],
+                ),
+              ),
+              CostumButton(
+                title: "Book Now",
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ChooseSeatPage(),
+                      ));
+                },
+                width: 170,
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 60,
+          )
         ],
       ),
+    );
+  }
+
+  Widget BagroundImage() {
+    return Container(
+      height: 450,
+      width: double.infinity,
+      decoration: const BoxDecoration(
+          image: DecorationImage(
+              fit: BoxFit.cover,
+              image: AssetImage("assets/image_destination1.png"))),
     );
   }
 
@@ -162,16 +213,9 @@ class DetailPage extends StatelessWidget {
         children: [
           Stack(
             children: [
-              Container(
-                height: 450,
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: AssetImage("assets/image_destination1.png"))),
-              ),
+              BagroundImage(),
               costumShadow(),
-              content()
+              content(),
             ],
           )
         ],
